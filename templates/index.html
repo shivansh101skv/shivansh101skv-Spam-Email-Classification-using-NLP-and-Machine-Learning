@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Spam Email Classification using NLP and Machine Learning</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+    <style>
+        body {
+            background-color:rgb(243, 172, 196); 
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        h1 {
+            color: #007bff; 
+        }
+
+        .form-control {
+            background-color:rgb(240, 240, 238); 
+        }
+
+        .btn-primary {
+            background-color: #007bff; 
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0069d9; 
+            border-color: #0062cc;
+        }
+
+        .alert-success {
+            background-color: #d4edda; 
+            color: #155724; 
+            border-color: #c3e6cb;
+        }
+
+        .alert-danger {
+            background-color: #f8d7da; 
+            color: #721c24; 
+            border-color: #f5c6cb;
+        }
+    </style>
+
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">SPAM EMAIL CLASSIFIER</h1>
+        <form method="POST" action="{{ url_for('analyze_mail') }}">
+            <div class="form-group">
+                <label for="mail">Enter your E-mail context below:</label>
+                <textarea class="form-control" id="mail" name="mail" rows="3">{{ email if email else '' }}</textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Analyze</button>
+        </form>
+
+        {% if classify is defined %}
+            <div class="mt-4">
+                <h5>Your Entered Email:</h5>
+                <p class="alert alert-info">{{ email }}</p>
+                
+                {% if classify == 0 %}
+                    <div class="alert alert-danger" role="alert">This is a spam mail</div>
+                {% elif classify == 1 %}
+                    <div class="alert alert-success" role="alert">This is a ham mail</div>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
